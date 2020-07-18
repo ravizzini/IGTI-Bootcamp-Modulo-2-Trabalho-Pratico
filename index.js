@@ -142,6 +142,8 @@ async function compareCitiesNameSizeByState() {
   const states = JSON.parse(await fs.readFile('./files/Estados.json'));
   const resultCitiesBiggestName = [];
   const resultCitiesSmallestName = [];
+  let citySmallestName;
+  let cityBiggestName;
 
   for (state of states) {
     const biggestName = await citiesBiggestName(state.Sigla);
@@ -153,11 +155,6 @@ async function compareCitiesNameSizeByState() {
     );
   }
 
-  console.log('Cidades com maiores nomes:' + resultCitiesBiggestName);
-  console.log('Cidades com menores nomes:' + resultCitiesSmallestName);
-
-  let cityBiggestName;
-
   resultCitiesBiggestName.forEach((city) => {
     if (!cityBiggestName) cityBiggestName = city;
     else if (city.length > cityBiggestName.length) cityBiggestName = city;
@@ -167,8 +164,6 @@ async function compareCitiesNameSizeByState() {
     )
       cityBiggestName = city;
   });
-
-  let citySmallestName;
 
   resultCitiesSmallestName.forEach((city) => {
     if (!citySmallestName) citySmallestName = city;
@@ -180,12 +175,8 @@ async function compareCitiesNameSizeByState() {
       citySmallestName = city;
   });
 
+  console.log('Cidades com maiores nomes:' + resultCitiesBiggestName);
+  console.log('Cidades com menores nomes:' + resultCitiesSmallestName);
   console.log('Cidade com maior Nome: ' + cityBiggestName);
   console.log('Cidade com menor Nome: ' + citySmallestName);
-
-  // const citieBiggestName = resultCitiesBiggestName.slice(0, 1);
-  // console.log('Cidade com maior Nome' + citieBiggestName);
-
-  // const citieSmallestName = resultCitiesSmallestName.slice(0, 1);
-  // console.log('Cidade com maior Nome' + citieSmallestName);
 }
